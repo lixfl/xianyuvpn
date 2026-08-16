@@ -504,7 +504,7 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
 }
 .nav-item.active::after{display:none}
 .nav-item .icon{font-size:16px;width:18px;text-align:center;flex-shrink:0}
-.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;display:inline-block}
+.nav-icon{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}.nav-icon svg{width:18px;height:18px}
 /* ============ Main Content ============ */
 .main{
   flex:1;
@@ -1077,7 +1077,7 @@ tr:hover{background:var(--fu-blue-soft)}
 @media(max-width:768px){
   .sidebar{width:60px;padding:0}
   .nav-item{justify-content:center;padding:12px 0;gap:0}
-  .nav-item .nav-icon{font-size:18px;display:block}
+  .nav-item .nav-icon svg{width:18px;height:18px}
   .nav-item span:not(.nav-icon){display:none}
   .logo{font-size:0;padding:16px 0;justify-content:center}
   .logo::before{margin:0}
@@ -1092,7 +1092,7 @@ tr:hover{background:var(--fu-blue-soft)}
 @media(max-width:480px){
   .sidebar{width:52px}
   .nav-item{padding:10px 0}
-  .nav-item .nav-icon{font-size:16px}
+  .nav-item .nav-icon svg{width:16px;height:16px}
   .main{margin-left:52px;padding:12px}
   .cards{grid-template-columns:1fr}
 }
@@ -1102,14 +1102,14 @@ tr:hover{background:var(--fu-blue-soft)}
 <div class="app">
   <div class="sidebar">
     <div class="logo">xianyuvpn</div>
-    <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span>仪表盘</span></div>
-    <div class="nav-item" data-page="nodes"><span class="nav-icon">🌐</span><span>节点</span></div>
-    <div class="nav-item" data-page="connections"><span class="nav-icon">🔗</span><span>连接</span></div>
-    <div class="nav-item" data-page="rules"><span class="nav-icon">📋</span><span>规则</span></div>
-    <div class="nav-item" data-page="logs"><span class="nav-icon">📝</span><span>日志</span></div>
-    <div class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span><span>设置</span></div>
-    <div class="nav-item" data-page="account"><span class="nav-icon">👤</span><span>账号</span></div>
-    <div class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span><span>退出登录</span></div>
+    <div class="nav-item active" data-page="dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-5"/><path d="M12 16V8"/><path d="M17 16v-3"/></svg></span><span>仪表盘</span></div>
+    <div class="nav-item" data-page="nodes"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span>节点</span></div>
+    <div class="nav-item" data-page="connections"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span><span>连接</span></div>
+    <div class="nav-item" data-page="rules"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span><span>规则</span></div>
+    <div class="nav-item" data-page="logs"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span><span>日志</span></div>
+    <div class="nav-item" data-page="settings"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>设置</span></div>
+    <div class="nav-item" data-page="account"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>账号</span></div>
+    <div class="nav-item" onclick="logout()"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span>退出登录</span></div>
   </div>
   <div class="main">
     <!-- Dashboard -->
