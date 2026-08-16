@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# ============================================================
+# xianyuvpn - unified CLI entry
+# Usage: xy <command> [args]
+# ============================================================
+
+# Auto-detect install directory
+if [ -L "$0" ]; then
+    PROJECT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+else
+    PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
+
+# If xy is in PATH (e.g. /usr/local/bin), find xianyuvpn install dir
+if [ ! -f "$PROJECT_DIR/scripts/xianyuvpn.sh" ]; then
+    for dir in "$HOME/xianyuvpn" "/opt/xianyuvpn" "$HOME/.xianyuvpn"; do
+        if [ -f "$dir/scripts/xianyuvpn.sh" ]; then
+            PROJECT_DIR="$dir"
+            break
+        fi
+    done
+fi
+
+SCRIPTS_DIR="$PROJECT_DIR/scripts"
+Xianyuvpn_SH="$SCRIPTS_DIR/xianyuvpn.sh"
+UPDATE_SH="$SCRIPTS_DIR/update-sub.sh"
+INSTALL_SH="$PROJECT_DIR/install.sh"
+WEBUI_PY="$SCRIPTS_DIR/webui.py"
+
+if [ ! -f "$Xianyuvpn_SH" ]; then
+    echo "Error: xianyuvpn.sh not found in $SCRIPTS_DIR"
+    echo "Please run this script from your xianyuvpn directory,"
+    echo "or install it with: sudo ln -sf $(pwd)/xy /usr/local/bin/xy"
+    exit 1
+fi
+
+case "${1:-}" in
+    start|stop|restart|status|reload|test|log|proxy)
+        exec "$Xianyuvpn_SH" "$@"
+        ;;
+    update|sub)
+        shift
+        exec "$UPDATE_SH" "$@"
+        ;;
+    install)
+        exec "$INSTALL_SH"
+        ;;
+    webui|ui)
+        shift
+        exec python3 "$WEBUI_PY" "$@"
+        ;;
+    *)
+        echo "xianyuvpn - unified CLI"
+        echo ""
+        echo "Usage: xy <command> [args]"
+        echo ""
+        echo "Proxy commands:"
+        echo "  xy start      Start proxy"
+        echo "  xy stop       Stop proxy"
+        echo "  xy restart    Restart proxy"
+        echo "  xy status     Show status"
+        echo "  xy reload     Reload config"
+        echo "  xy test       Test config"
+        echo "  xy log        Follow logs"
+        echo "  xy proxy      Print proxy env vars"
+        echo ""
+        echo "Subscription:"
+        echo "  xy update [url]   Update subscription"
+        echo "  xy sub [url]      Alias of update"
+        echo ""
+        echo "Installation:"
+        echo "  xy install        Download core and geo data"
+        echo ""
+        echo "Web UI:"
+        echo "  xy webui [--port 9091]   Start web interface"
+        echo "  xy ui                    Alias of webui"
+        echo ""
+        echo "Examples:"
+        echo "  xy update \"https://your-sub-url\""
+        echo "  xy start"
+        echo "  eval \$(xy proxy)"
+        ;;
+esac

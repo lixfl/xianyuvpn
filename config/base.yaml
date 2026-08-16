@@ -1,0 +1,78 @@
+# ============================================================
+# xianyuvpn - base config template
+# Node and rules are auto-updated by subscription
+# Run ./update-sub.sh to generate config/config.yaml
+# ============================================================
+
+mixed-port: 7890
+allow-lan: false
+bind-address: '*'
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ''
+
+geodata-mode: true
+geox-url:
+  geoip: https://gh.jasonzeng.dev/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoIP.dat
+  geosite: https://gh.jasonzeng.dev/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  mmdb: https://gh.jasonzeng.dev/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/ASN.mmdb
+
+ipv6: false
+tcp-concurrent: true
+find-process-mode: strict
+
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - '+.google.com'
+    - '+.facebook.com'
+    - '+.youtube.com'
+  skip-domain:
+    - '+.lan'
+    - '+.local'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '+.lan'
+    - '+.local'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.stun.*.*'
+    - '+.stun.*.*.*'
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+# The following sections are auto-filled by subscription
+# proxies: []
+# proxy-groups: []
+# rules: []

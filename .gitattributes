@@ -1,0 +1,16 @@
+# 寮哄埗鎵€鏈夋枃鏈枃浠朵娇鐢?LF 鎹㈣
+* text=auto eol=lf
+
+# 鏄庣‘鎸囧畾鑴氭湰鏂囦欢
+*.sh text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.service text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+
+# 浜岃繘鍒舵枃浠朵笉杞崲
+*.gz binary
+*.metadb binary
+*.mmdb binary
+*.db binary

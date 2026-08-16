@@ -1,0 +1,16 @@
+[Unit]
+Description=xianyuvpn WebUI - Web Management Interface
+After=network.target xianyuvpn.service
+Wants=xianyuvpn.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/xianyuvpn
+ExecStart=/usr/bin/python3 /opt/xianyuvpn/scripts/webui.py --host 0.0.0.0 --port 9091
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

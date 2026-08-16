@@ -1,0 +1,34 @@
+# Binaries
+bin/mihomo
+bin/*.exe
+bin/*.gz
+
+# Geo data (downloaded by install.sh)
+data/
+!data/.gitkeep
+
+# Runtime config (generated from subscription)
+config/config.yaml
+config/sub.txt
+config/webui.json
+
+# Runtime files
+mihomo.log
+mihomo.pid
+*.log
+*.pid
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
