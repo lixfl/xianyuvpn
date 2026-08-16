@@ -746,27 +746,28 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
 }
 /* ============ Finance SaaS Dashboard ============ */
 .fin-hero{
-  background:linear-gradient(135deg,var(--fu-blue) 0%,#1d4ed8 100%);
+  background:var(--fu-white);
+  border:1px solid var(--fu-line);
   border-radius:10px;
   padding:24px 28px;
   margin-bottom:16px;
-  color:#fff;
+  color:var(--fu-ink);
   position:relative;
   overflow:hidden;
   transition:transform .15s,box-shadow .15s;
 }
-.fin-hero:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.25)}
+.fin-hero:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
 .fin-hero::after{
   content:'';
   position:absolute;
   top:-40px;right:-40px;
   width:160px;height:160px;
-  background:rgba(255,255,255,.06);
+  background:rgba(37,99,235,.04);
   border-radius:50%;
 }
 .fin-hero-label{
   font-size:13px;
-  opacity:.75;
+  color:var(--text-secondary);
   font-weight:500;
   margin-bottom:6px;
   text-transform:uppercase;
@@ -778,16 +779,18 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   margin-bottom:10px;
   word-break:break-all;
   line-height:1.3;
+  color:var(--fu-ink);
 }
 .fin-hero-meta{
   display:flex;
   align-items:center;
   gap:8px;
   font-size:13px;
-  opacity:.9;
+  color:var(--text-secondary);
 }
 .fin-hero-badge{
-  background:rgba(255,255,255,.2);
+  background:var(--fu-bg);
+  color:var(--fu-blue);
   padding:3px 10px;
   border-radius:4px;
   font-weight:600;
