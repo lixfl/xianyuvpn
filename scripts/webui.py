@@ -504,6 +504,7 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
 }
 .nav-item.active::after{display:none}
 .nav-item .icon{font-size:16px;width:18px;text-align:center;flex-shrink:0}
+.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;display:inline-block}
 /* ============ Main Content ============ */
 .main{
   flex:1;
@@ -912,9 +913,26 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   font-variant-numeric:tabular-nums;
 }
 @media(max-width:768px){
-  .fin-kpi-row{grid-template-columns:repeat(2,1fr)}
+  .fin-kpi-row{grid-template-columns:repeat(2,1fr);gap:10px}
+  .fin-hero{padding:18px 20px}
   .fin-hero-value{font-size:22px}
   .fin-stats-row{grid-template-columns:1fr}
+  .fin-chart-area{height:140px}
+  .node-grid{grid-template-columns:repeat(2,1fr)}
+  .group-tabs{overflow-x:auto;flex-wrap:nowrap}
+  .group-tab{white-space:nowrap}
+}
+@media(max-width:480px){
+  .fin-kpi-row{grid-template-columns:1fr}
+  .fin-hero-value{font-size:18px}
+  .fin-chart-area{height:120px}
+  .node-grid{grid-template-columns:1fr}
+  .header h1{font-size:18px}
+  .log-box{height:350px;font-size:11px}
+  .conn-table{font-size:11px}
+  .conn-table th,.conn-table td{padding:6px 8px}
+  .btn{padding:7px 14px;font-size:12px}
+  .input,select{font-size:13px}
 }
 /* ============ Inputs ============ */
 .input{
@@ -1057,15 +1075,26 @@ tr:hover{background:var(--fu-blue-soft)}
 ::selection{background:rgba(37,99,235,.15);color:var(--fu-ink)}
 /* ============ Responsive ============ */
 @media(max-width:768px){
-  .sidebar{width:64px;padding:0}
-  .nav-item{justify-content:center;padding:10px 4px;font-size:0}
-  .nav-item .icon{font-size:18px}
-  .nav-item span{display:none}
+  .sidebar{width:60px;padding:0}
+  .nav-item{justify-content:center;padding:12px 0;gap:0}
+  .nav-item .nav-icon{font-size:18px;display:block}
+  .nav-item span:not(.nav-icon){display:none}
   .logo{font-size:0;padding:16px 0;justify-content:center}
   .logo::before{margin:0}
   .logo::after{display:none}
-  .main{margin-left:64px;padding:16px}
+  .main{margin-left:60px;padding:14px}
+  .header{margin-bottom:16px}
   .header h1{font-size:20px}
+  .cards{grid-template-columns:repeat(2,1fr);gap:10px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-wrap table{min-width:500px}
+}
+@media(max-width:480px){
+  .sidebar{width:52px}
+  .nav-item{padding:10px 0}
+  .nav-item .nav-icon{font-size:16px}
+  .main{margin-left:52px;padding:12px}
+  .cards{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1073,24 +1102,20 @@ tr:hover{background:var(--fu-blue-soft)}
 <div class="app">
   <div class="sidebar">
     <div class="logo">xianyuvpn</div>
-    <div class="nav-item active" data-page="dashboard"><span>仪表盘</span></div>
-    <div class="nav-item" data-page="nodes"><span>节点</span></div>
-    <div class="nav-item" data-page="connections"><span>连接</span></div>
-    <div class="nav-item" data-page="rules"><span>规则</span></div>
-    <div class="nav-item" data-page="logs"><span>日志</span></div>
-    <div class="nav-item" data-page="settings"><span>设置</span></div>
-    <div class="nav-item" data-page="account"><span>账号</span></div>
-    <div class="nav-item" onclick="logout()"><span>退出登录</span></div>
+    <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span><span>仪表盘</span></div>
+    <div class="nav-item" data-page="nodes"><span class="nav-icon">🌐</span><span>节点</span></div>
+    <div class="nav-item" data-page="connections"><span class="nav-icon">🔗</span><span>连接</span></div>
+    <div class="nav-item" data-page="rules"><span class="nav-icon">📋</span><span>规则</span></div>
+    <div class="nav-item" data-page="logs"><span class="nav-icon">📝</span><span>日志</span></div>
+    <div class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span><span>设置</span></div>
+    <div class="nav-item" data-page="account"><span class="nav-icon">👤</span><span>账号</span></div>
+    <div class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span><span>退出登录</span></div>
   </div>
   <div class="main">
     <!-- Dashboard -->
     <div class="page active" id="page-dashboard">
       <div class="header">
         <h1>仪表盘</h1>
-        <div style="display:flex;align-items:center;gap:14px">
-          <span class="status-badge stopped" id="statusBadge">未运行</span>
-          <div class="switch" id="proxySwitch" onclick="toggleProxy()"></div>
-        </div>
       </div>
       <!-- Core status hero -->
       <div class="fin-hero" onclick="goPage('nodes')" style="cursor:pointer">
@@ -1411,12 +1436,15 @@ async function refreshStatus(){
     const s=await api('/api/status');
     const badge=document.getElementById('statusBadge');
     const sw=document.getElementById('proxySwitch');
+    const hs=document.getElementById('heroStatus');
     if(s.running){
-      badge.textContent='运行中';badge.className='status-badge running';sw.classList.add('on');
-      const hs=document.getElementById('heroStatus');if(hs)hs.textContent='运行中';
+      if(badge){badge.textContent='运行中';badge.className='status-badge running';}
+      if(sw)sw.classList.add('on');
+      if(hs)hs.textContent='运行中';
     }else{
-      badge.textContent='已停止';badge.className='status-badge stopped';sw.classList.remove('on');
-      const hs=document.getElementById('heroStatus');if(hs)hs.textContent='已停止';
+      if(badge){badge.textContent='已停止';badge.className='status-badge stopped';}
+      if(sw)sw.classList.remove('on');
+      if(hs)hs.textContent='已停止';
     }
     if(s.current_node)document.getElementById('currentNode').textContent=s.current_node;
     if(s.version)document.getElementById('coreVersion').textContent=s.version;

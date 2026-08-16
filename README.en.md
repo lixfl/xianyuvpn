@@ -7,7 +7,8 @@
 
 ## Features
 
-- Built-in Web UI for visual management (dashboard, node switch, real-time logs)
+- Built-in Web UI for visual management (Finance SaaS style dashboard, node switch, real-time logs)
+- Responsive design, perfectly adapts to PC and mobile devices
 - Pure CLI, no GUI dependencies
 - One-click install to current directory (no root needed)
 - Unified `xy` command for all operations
@@ -128,15 +129,17 @@ Then open `http://your-server-ip:9091` in your browser.
 
 Default credentials: `admin` / `admin123` (please change after first login)
 
-WebUI Features (Finance SaaS style dashboard):
+WebUI Features (Finance SaaS style, responsive for PC/mobile):
 
-- **Dashboard**: running status, current node, real-time up/down speed, uptime, total traffic, active connections, run mode, traffic trend area chart, KPI cards with sparklines
+- **Dashboard**: blue gradient core status banner, 4 KPI cards (with sparkline mini trends), SVG dual-line area traffic chart, total traffic stats
 - **Node Management**: proxy group tabs, node search, delay sorting, batch speed test, click to switch
-- **Connection Management**: active connections list, close single connection, close all
-- **Rule Management**: full rule list with search filter
+- **Connection Management**: active connections list, close single connection, close all (horizontal scroll on mobile)
+- **Rule Management**: full rule list with search filter (horizontal scroll on mobile)
 - **Logs**: real-time streaming, level filter (info/warning/error/debug), auto-scroll, clear
 - **Settings**: start/stop/restart/reload, run mode switch (rule/global/direct), log level, allow LAN, subscription update, base config editor, system info
 - **Account**: change password, public access toggle
+
+Security: PBKDF2-HMAC-SHA256 password hashing, Session auth, device trust, login captcha, failed attempt lockout, rate limiting
 
 ### API Operations
 
