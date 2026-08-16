@@ -433,6 +433,13 @@ body{
   color:var(--fu-ink);
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  -webkit-tap-highlight-color:transparent;
+}
+*,*::before,*::after{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
 }
 h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
 .app{display:flex;min-height:100vh}
@@ -449,7 +456,14 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   top:0;left:0;bottom:0;
   z-index:100;
   overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:var(--fu-line) transparent;
+  contain:layout style;
 }
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--fu-line);border-radius:2px}
 .logo{
   padding:20px 24px;
   font-size:18px;
@@ -477,22 +491,36 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   border-radius:var(--fu-radius);
   cursor:pointer;
   color:var(--fu-muted);
-  transition:all .15s ease;
+  transition:background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),transform .15s ease;
   display:flex;
   align-items:center;
   gap:10px;
   font-size:14px;
   font-weight:500;
   user-select:none;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+  will-change:background-color,color;
 }
 .nav-item:hover{
   background:var(--fu-blue-soft);
   color:var(--fu-blue);
 }
+.nav-item:active{transform:translateZ(0) scale(.97)}
 .nav-item.active{
-  background:var(--fu-blue);
-  color:#fff;
+  background:var(--fu-blue-soft);
+  color:var(--fu-blue);
   font-weight:600;
+  position:relative;
+}
+.nav-item.active::before{
+  content:'';
+  position:absolute;
+  left:-12px;top:50%;
+  transform:translateY(-50%);
+  width:3px;height:20px;
+  background:var(--fu-blue);
+  border-radius:0 3px 3px 0;
 }
 .nav-item.active::after{display:none}
 .nav-item .icon{font-size:16px;width:18px;text-align:center;flex-shrink:0}
@@ -505,6 +533,8 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   overflow-y:auto;
   max-width:100%;
   min-height:100vh;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
 }
 .header{
   display:flex;
@@ -542,8 +572,10 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   background:#cbd5e1;
   border-radius:999px;
   cursor:pointer;
-  transition:all .2s ease;
+  transition:background-color .25s cubic-bezier(.4,0,.2,1);
   flex-shrink:0;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 .switch.on{background:var(--fu-blue)}
 .switch::after{
@@ -553,10 +585,10 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   width:18px;height:18px;
   background:#fff;
   border-radius:50%;
-  transition:all .2s ease;
+  transition:-webkit-transform .25s cubic-bezier(.4,0,.2,1),transform .25s cubic-bezier(.4,0,.2,1);
   box-shadow:0 1px 3px rgba(0,0,0,.2);
 }
-.switch.on::after{transform:translateX(18px)}
+.switch.on::after{-webkit-transform:translateX(18px);transform:translateX(18px)}
 /* ============ Cards ============ */
 .cards{
   display:grid;
@@ -568,8 +600,10 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   background:var(--fu-white);
   border-radius:var(--fu-radius);
   padding:18px 20px;
-  transition:all .15s ease;
+  transition:border-color .2s cubic-bezier(.4,0,.2,1),box-shadow .2s cubic-bezier(.4,0,.2,1),transform .15s ease;
   border:1px solid var(--fu-line);
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 .card:hover{
   border-color:var(--fu-blue);
@@ -596,11 +630,13 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   font-size:13px;
   font-weight:500;
   font-family:inherit;
-  transition:all .15s ease;
+  transition:background-color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),transform .1s ease;
   min-height:34px;
   display:inline-flex;
   align-items:center;
   gap:6px;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 .btn:hover{
   border-color:var(--fu-blue);
@@ -650,8 +686,10 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   cursor:pointer;
   font-size:13px;
   font-weight:500;
-  transition:all .15s ease;
+  transition:background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
   user-select:none;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 .group-tab.active{
   background:var(--fu-blue);
@@ -672,14 +710,16 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   border-radius:var(--fu-radius);
   padding:14px 16px;
   cursor:pointer;
-  transition:all .15s ease;
+  transition:border-color .2s cubic-bezier(.4,0,.2,1),box-shadow .2s cubic-bezier(.4,0,.2,1),transform .15s ease;
   border:1px solid var(--fu-line);
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
 }
 .node-card:hover{
   border-color:var(--fu-blue);
   box-shadow:0 2px 8px rgba(37,99,235,.08);
 }
-.node-card:active{transform:scale(.99)}
+.node-card:active{-webkit-transform:translateZ(0) scale(.99);transform:translateZ(0) scale(.99)}
 .node-card.active{
   border-color:var(--fu-blue);
   background:var(--fu-blue-soft);
@@ -722,9 +762,9 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
 .log-line.error{color:#f87171}
 .log-line.debug{color:#94a3b8}
 /* ============ Pages ============ */
-.page{display:none}
-.page.active{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page{display:none;contain:layout style}
+.page.active{display:block;animation:fadeIn .25s cubic-bezier(.4,0,.2,1)}
+@keyframes fadeIn{from{opacity:0;-webkit-transform:translate3d(0,8px,0);transform:translate3d(0,8px,0)}to{opacity:1;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
 /* ============ Traffic Chart ============ */
 .traffic-chart{
   height:120px;
@@ -811,7 +851,9 @@ h1,h2,h3,h4,h5,h6{color:var(--fu-ink);font-weight:600}
   border:1px solid var(--fu-line);
   border-radius:10px;
   padding:18px 20px;
-  transition:all .15s;
+  transition:border-color .2s cubic-bezier(.4,0,.2,1),box-shadow .2s cubic-bezier(.4,0,.2,1),transform .15s ease;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
   position:relative;
   overflow:hidden;
 }
@@ -1089,6 +1131,14 @@ tr:hover{background:var(--fu-blue-soft)}
   .nav-item .nav-icon svg{width:16px;height:16px}
   .main{margin-left:52px;padding:12px}
   .cards{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
 }
 </style>
 </head>
@@ -1412,15 +1462,24 @@ async function cycleMode(){
 document.querySelectorAll('.nav-item').forEach(item=>{
   if(!item.dataset.page)return;
   item.onclick=()=>{
-    document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    item.classList.add('active');
-    document.getElementById('page-'+item.dataset.page).classList.add('active');
-    if(item.dataset.page==='nodes')loadNodes();
-    if(item.dataset.page==='connections')loadConnections();
-    if(item.dataset.page==='rules')loadRules();
-    if(item.dataset.page==='settings')loadSettings();
-    if(item.dataset.page==='account')loadAccount();
+    const page=item.dataset.page;
+    requestAnimationFrame(()=>{
+      document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      item.classList.add('active');
+      const target=document.getElementById('page-'+page);
+      if(target){
+        target.classList.add('active');
+        target.style.animation='none';
+        target.offsetHeight;
+        target.style.animation='';
+      }
+      if(page==='nodes')loadNodes();
+      if(page==='connections')loadConnections();
+      if(page==='rules')loadRules();
+      if(page==='settings')loadSettings();
+      if(page==='account')loadAccount();
+    });
   };
 });
 
